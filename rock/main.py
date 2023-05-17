@@ -10,7 +10,7 @@ stats = {'wins': 0, 'losses': 0, 'draws': 0, 'gaming': 0}
 
 
 async def start_game(message: types.Message):
-    await message.answer('Привет!\nДавай поиграем в "Камень, ножницы, бумага"?\nНажми на нужную кнопку ниже и посмотрим, кто победит!')
+    await message.answer('Привет!\nДавай поиграем в "Камень, ножницы, бумага, Спок, ящерица"?\nНажми на нужную кнопку ниже и посмотрим, кто победит!')
 
     btns_text = ['Камень', 'Ножницы', 'Бумага', 'Спок', 'Ящерица']
     btns = [types.KeyboardButton(text) for text in btns_text]
