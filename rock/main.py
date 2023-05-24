@@ -1,3 +1,4 @@
+# Подключение библиотек
 import random
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -8,10 +9,10 @@ dp = Dispatcher(bot)
 
 stats = {'wins': 0, 'losses': 0, 'draws': 0, 'gaming': 0}
 
-
+# Начальное сообщение
 async def start_game(message: types.Message):
     await message.answer('Привет!\nДавай поиграем в "Камень, ножницы, бумага, Спок, ящерица"?\nНажми на нужную кнопку ниже и посмотрим, кто победит!')
-
+    # Создание кнопок
     btns_text = ['Камень', 'Ножницы', 'Бумага', 'Спок', 'Ящерица']
     btns = [types.KeyboardButton(text) for text in btns_text]
 
@@ -30,17 +31,14 @@ async def repeat_game(message: types.Message):
 
     await message.answer('Новый раунд!\nТвой выбор:', reply_markup=markup)
 
-
+# Создание команды start
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     await start_game(message)
 
 
-@dp.message_handler(lambda message: message.text.lower() == 'играть еще раз')
-async def play_again(message: types.Message):
-    await start_game(message)
 
-
+# Выбор игрока
 @dp.message_handler(lambda message: message.text.lower() in ['камень', 'ножницы', 'бумага', 'спок', 'ящерица'])
 async def process_choice(message: types.Message):
     user_choice = message.text.lower()
@@ -74,15 +72,8 @@ async def process_choice(message: types.Message):
                          f'Ничьих: {stats["draws"]}\n'
                          f'Игр сыграно: {stats["gaming"]}')
 
-    # Предложение поиграть снова
-    btns_text = ['Играть ещё раз']
-    btns = [types.KeyboardButton(text) for text in btns_text]
-
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add(*btns)
 
     await repeat_game(message)
-
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
