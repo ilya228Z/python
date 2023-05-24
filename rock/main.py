@@ -1,4 +1,4 @@
-# Подключение библиотек
+# Подключение библиотеки
 import random
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
@@ -6,12 +6,12 @@ from aiogram.utils import executor
 
 bot = Bot('5764483920:AAFWIoSRFWlO35hgelVkMUJJnVhh6cTrdWM')
 dp = Dispatcher(bot)
-
+# Статистика
 stats = {'wins': 0, 'losses': 0, 'draws': 0, 'gaming': 0}
 
 # Начальное сообщение
 async def start_game(message: types.Message):
-    await message.answer('Привет!\nДавай поиграем в "Камень, ножницы, бумага, Спок, ящерица"?\nНажми на нужную кнопку ниже и посмотрим, кто победит!')
+    await message.answer('Привет!\nДавай поиграем в "Камень, ножницы, бумага, Спок и ящерица"?\nНажми на нужную кнопку ниже и посмотрим, кто победит!')
     # Создание кнопок
     btns_text = ['Камень', 'Ножницы', 'Бумага', 'Спок', 'Ящерица']
     btns = [types.KeyboardButton(text) for text in btns_text]
@@ -35,7 +35,6 @@ async def repeat_game(message: types.Message):
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
     await start_game(message)
-
 
 
 # Выбор игрока
@@ -73,7 +72,9 @@ async def process_choice(message: types.Message):
                          f'Игр сыграно: {stats["gaming"]}')
 
 
+
     await repeat_game(message)
+
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
